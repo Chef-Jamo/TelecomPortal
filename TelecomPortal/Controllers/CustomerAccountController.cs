@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TelecomPortal.Data.Repository.Entities;
+using TelecomPortal.Services.Dtos;
 using TelecomPortal.Services.Interfaces;
 
 namespace TelecomPortal.Controllers
@@ -16,14 +17,14 @@ namespace TelecomPortal.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CustomerAccount>>> GetAll()
+        public async Task<ActionResult<IEnumerable<CustomerAccountDto>>> GetAll()
         {
             var customers = await _customerAccountService.GetAllAsync();
             return Ok(customers);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<CustomerAccount>> GetById(Guid id)
+        public async Task<ActionResult<CustomerAccountDto>> GetById(Guid id)
         {
             var customer = await _customerAccountService.GetByIdAsync(id);
             if (customer == null)
@@ -33,14 +34,14 @@ namespace TelecomPortal.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CustomerAccount>> Create([FromBody] CustomerAccount customer)
+        public async Task<ActionResult<CustomerAccountDto>> Create([FromBody] CustomerAccountDto customer)
         {
             var created = await _customerAccountService.CreateAsync(customer);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] CustomerAccount updatedCustomer)
+        public async Task<IActionResult> Update([FromBody] CustomerAccountDto updatedCustomer)
         {
             var result = await _customerAccountService.UpdateAsync(updatedCustomer);
             return Ok(result);
