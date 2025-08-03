@@ -6,6 +6,7 @@ using System.Net;
 using TelecomPortal.Common.Constants;
 using TelecomPortal.Data.Extensions;
 using TelecomPortal.Data.Repository.Context;
+using TelecomPortal.Data.Repository.Seeder;
 using TelecomPortal.Services.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddHealthChecks()
     .AddSqlServer(builder.Configuration.GetConnectionString(TelecomConstants.TelecomLocalDB)!, name: "SQL Server");
+
+builder.Services.AddTransient<CustomerAccountSeeder>();
 
 builder.Services.AddHealthChecksUI(options =>
 {
@@ -42,6 +45,12 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var seeder = scope.ServiceProvider.GetRequiredService<CustomerAccountSeeder>();
+    await seeder.SeedAsync();
+}
 
 app.UseSwagger();
 app.UseSwaggerUI(options =>
