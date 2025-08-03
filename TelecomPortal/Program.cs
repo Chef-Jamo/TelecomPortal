@@ -21,7 +21,6 @@ builder.Services.AddRepositories();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Health Checks Dashboard
 builder.Services.AddHealthChecks()
     .AddSqlServer(builder.Configuration.GetConnectionString(TelecomConstants.TelecomLocalDB)!, name: "SQL Server");
 
@@ -31,6 +30,16 @@ builder.Services.AddHealthChecksUI(options =>
     options.MaximumHistoryEntriesPerEndpoint(60);
     options.AddHealthCheckEndpoint("API Health", "/healthz"); 
 }).AddInMemoryStorage();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("TelecomPortal.Client", builder =>
+    {
+        builder.WithOrigins("http://localhost:5173")
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
 var app = builder.Build();
 
@@ -75,8 +84,9 @@ app.UseHealthChecksUI(config =>
     config.UIPath = "/health-ui";
 });
 
-
 app.UseHttpsRedirection();
+
+app.UseCors("TelecomPortal.Client");
 
 app.UseAuthorization();
 

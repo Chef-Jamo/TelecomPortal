@@ -17,7 +17,7 @@ namespace TelecomPortal.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CustomerAccountDto>>> GetAll()
+        public async Task<ActionResult<List<CustomerAccountDto>>> GetAll()
         {
             var customers = await _customerAccountService.GetAllAsync();
             return Ok(customers);
