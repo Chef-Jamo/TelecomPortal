@@ -29,7 +29,7 @@ namespace TelecomPortal.Tests
         public async Task CreateAsync_ShouldReturnCreatedDto()
         {
             // Arrange
-            var dto = new CustomerAccountDto { Id = Guid.NewGuid(), FullName = "John Doe" };
+            var dto = new CustomerAccountDto { Id = 1, FullName = "John Doe" };
             var entity = (CustomerAccount)dto;
             _mockRepo.Setup(r => r.AddAsync(It.IsAny<CustomerAccount>()))
                      .ReturnsAsync(entity);
@@ -47,7 +47,7 @@ namespace TelecomPortal.Tests
         public async Task GetByIdAsync_ShouldReturnCustomer_WhenExists()
         {
             // Arrange
-            var id = Guid.NewGuid();
+            var id = 1;
             var entity = new CustomerAccount { Id = id, FullName = "Jane Smith" };
             _mockRepo.Setup(r => r.GetByIdAsync(id)).ReturnsAsync(entity);
 
@@ -63,7 +63,7 @@ namespace TelecomPortal.Tests
         public async Task GetByIdAsync_ShouldReturnNewDto_WhenNotFound()
         {
             // Arrange
-            var id = Guid.NewGuid();
+            var id = 1;
             _mockRepo.Setup(r => r.GetByIdAsync(id)).ReturnsAsync((CustomerAccount?)null);
 
             // Act
@@ -72,7 +72,7 @@ namespace TelecomPortal.Tests
             // Assert
             result.Should().NotBeNull();
             result.Should().BeOfType<CustomerAccountDto>();
-            result.Id.Should().Be(Guid.Empty);
+            result.Id.Should().Be(id);
         }
 
         [Fact]
@@ -81,8 +81,8 @@ namespace TelecomPortal.Tests
             // Arrange
             var list = new List<CustomerAccount>
         {
-            new() { Id = Guid.NewGuid(), FullName = "Alice" },
-            new() { Id = Guid.NewGuid(), FullName = "Bob" }
+            new() { Id = 1, FullName = "Alice" },
+            new() { Id = 2, FullName = "Bob" }
         };
             _mockRepo.Setup(r => r.GetAllAsync()).ReturnsAsync(list);
 
@@ -98,7 +98,7 @@ namespace TelecomPortal.Tests
         public async Task UpdateAsync_ShouldReturnUpdatedDto()
         {
             // Arrange
-            var dto = new CustomerAccountDto { Id = Guid.NewGuid(), FullName = "Updated Name" };
+            var dto = new CustomerAccountDto { Id = 1, FullName = "Updated Name" };
             var entity = (CustomerAccount)dto;
             _mockRepo.Setup(r => r.UpdateAsync(It.IsAny<CustomerAccount>()))
                      .ReturnsAsync(entity);
@@ -115,7 +115,7 @@ namespace TelecomPortal.Tests
         public async Task DeleteAsync_ShouldReturnTrue_WhenDeleted()
         {
             // Arrange
-            var id = Guid.NewGuid();
+            var id = 1;
             _mockRepo.Setup(r => r.DeleteAsync(id)).ReturnsAsync(true);
 
             // Act
@@ -129,7 +129,7 @@ namespace TelecomPortal.Tests
         public async Task DeleteAsync_ShouldReturnFalse_WhenNotFound()
         {
             // Arrange
-            var id = Guid.NewGuid();
+            var id = 1;
             _mockRepo.Setup(r => r.DeleteAsync(id)).ReturnsAsync(false);
 
             // Act

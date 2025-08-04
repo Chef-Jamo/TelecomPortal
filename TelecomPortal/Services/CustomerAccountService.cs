@@ -20,7 +20,7 @@ namespace TelecomPortal.Services
             return created;
         }
 
-        public async Task<CustomerAccountDto?> GetByIdAsync(Guid id)
+        public async Task<CustomerAccountDto?> GetByIdAsync(int id)
         {
             var entity = await _repository.GetByIdAsync(id);
             return entity ?? new();
@@ -38,7 +38,7 @@ namespace TelecomPortal.Services
             return updated;
         }
 
-        public async Task<bool> DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(int id)
         {
             return await _repository.DeleteAsync(id);
         }

@@ -24,7 +24,7 @@ namespace TelecomPortal.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<CustomerAccountDto>> GetById(Guid id)
+        public async Task<ActionResult<CustomerAccountDto>> GetById(int id)
         {
             var customer = await _customerAccountService.GetByIdAsync(id);
             if (customer == null)
@@ -41,20 +41,20 @@ namespace TelecomPortal.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] CustomerAccountDto updatedCustomer)
+        public async Task<ActionResult<CustomerAccountDto>> Update([FromBody] CustomerAccountDto updatedCustomer)
         {
             var result = await _customerAccountService.UpdateAsync(updatedCustomer);
             return Ok(result);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<ActionResult<bool>> Delete(int id)
         {
             var deleted = await _customerAccountService.DeleteAsync(id);
             if (!deleted)
                 return NotFound();
 
-            return NoContent();
+            return deleted;
         }
     }
 }

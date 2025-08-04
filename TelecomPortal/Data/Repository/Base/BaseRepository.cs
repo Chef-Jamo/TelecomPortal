@@ -16,7 +16,7 @@ namespace TelecomPortal.Data.Repository.Base
             _dbSet = _context.Set<T>();
         }
 
-        public virtual async Task<T?> GetByIdAsync(Guid id)
+        public virtual async Task<T?> GetByIdAsync(int id)
         {
             return await _dbSet.FindAsync(id);
         }
@@ -46,7 +46,7 @@ namespace TelecomPortal.Data.Repository.Base
             return entity;
         }
 
-        public virtual async Task<bool> DeleteAsync(Guid id)
+        public virtual async Task<bool> DeleteAsync(int id)
         {
             var entity = await GetByIdAsync(id);
             if (entity == null) return false;
