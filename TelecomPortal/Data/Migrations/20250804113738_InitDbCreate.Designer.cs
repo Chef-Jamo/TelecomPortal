@@ -12,7 +12,7 @@ using TelecomPortal.Data.Repository.Context;
 namespace TelecomPortal.Data.Migrations
 {
     [DbContext(typeof(TelecomPortalContext))]
-    [Migration("20250801111947_InitDbCreate")]
+    [Migration("20250804113738_InitDbCreate")]
     partial class InitDbCreate
     {
         /// <inheritdoc />
@@ -27,9 +27,11 @@ namespace TelecomPortal.Data.Migrations
 
             modelBuilder.Entity("TelecomPortal.Data.Repository.Entities.CustomerAccount", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");

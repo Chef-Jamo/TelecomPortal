@@ -16,8 +16,7 @@ namespace TelecomPortal.Services
 
         public async Task<CustomerAccountDto> CreateAsync(CustomerAccountDto dto)
         {
-            var entity = (CustomerAccount)dto;
-            var created = await _repository.AddAsync(entity);
+            var created = await _repository.AddAsync(dto);
             return created;
         }
 
@@ -35,8 +34,7 @@ namespace TelecomPortal.Services
 
         public async Task<CustomerAccountDto> UpdateAsync(CustomerAccountDto dto)
         {
-            var entity = (CustomerAccount)dto;
-            var updated = await _repository.UpdateAsync(entity);
+            var updated = await _repository.UpdateAsync(dto);
             return updated;
         }
 

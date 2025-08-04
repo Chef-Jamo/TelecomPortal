@@ -19,7 +19,6 @@ namespace TelecomPortal.Data.Repository.Seeder
             {
                 var items = Enumerable.Range(1, 20).Select(i => new CustomerAccount
                 {
-                    Id = Guid.NewGuid(),
                     FullName = $"Sample Item {i}",
                     Email = $"SampleAddress{i}@gmail.com",
                     PhoneNumber = $"000-000-00{i}",
